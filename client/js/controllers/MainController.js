@@ -37,6 +37,7 @@ app.controller('MainController', function($scope, $http, $window) {
     sends a message and user name to the server side socket.
 */
      $scope.sendMessage = function() {
+        //Will have to change URL to whatever is being used 
         var socketio = io.connect("http://utkk4a021056.trentondaniels.koding.io:1337");
         var msg = ": " + document.getElementById("message_input").value;
         var user = $scope.userName;

@@ -14,6 +14,7 @@ var chatRoom = http.createServer(function (request, response) {
 */
     if (urlObj.pathname === '/addUser') {
         response.writeHead(200);
+        console.log("hit endpoint '/addUser'")
         var add = urlObj.query["q"];
         var nameExists = false;
         for(i = 0; i < users.length; i++) {
@@ -23,13 +24,13 @@ var chatRoom = http.createServer(function (request, response) {
             }
         }
         if (!nameExists) {
-            console.log(add);
             users.push(add);
-            console.log("In REST Service");
-            console.log(JSON.stringify(users));
+            console.log("\tNew User Added");
+            console.log("\t\tUsers: " + JSON.stringify(users) + "\n");
             response.end(JSON.stringify(users));
         }
         else {
+            console.log("\tUser name rejected.\n")
             response.end(false);
         }
     }
@@ -38,7 +39,8 @@ var chatRoom = http.createServer(function (request, response) {
 */
     else if (urlObj.pathname === '/users') {
         response.writeHead(200);
-        console.log("In REST Service");
+        console.log("hit endpoint '/users'")
+        console.log("\tUsers: " + JSON.stringify(users) + "\n");
         response.end(JSON.stringify(users));
     }
 /* Default
@@ -52,7 +54,6 @@ var chatRoom = http.createServer(function (request, response) {
                 return;
             }
             response.writeHead(200, {'Content-Type': 'text/html'});
-            console.log("test 1");
             response.write(data);
             response.end();
         });
