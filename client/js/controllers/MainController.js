@@ -2,7 +2,6 @@ app.controller('MainController', function($scope, $http, $window) {
     $scope.userName = null;
     $scope.userLogged = false;
     $scope.users = [];
-    
 /* closeLogIn()
     Checks the REST client for existing user name,
     adds the user and hides the div if the name 
@@ -38,7 +37,7 @@ app.controller('MainController', function($scope, $http, $window) {
 */
      $scope.sendMessage = function() {
         //Will have to change URL to whatever is being used 
-        var socketio = io.connect("http://utkk4a021056.trentondaniels.koding.io:1337");
+        var socketio = io.connect("http://utkk4a021056.trentondaniels.koding.io:8080");
         var msg = ": " + document.getElementById("message_input").value;
         var user = $scope.userName;
         socketio.emit("message_to_server", { message : msg, name : user});

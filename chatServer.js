@@ -3,7 +3,7 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 var ROOT_DIR = 'client';
-
+var id = 0;
 
 var chatRoom = http.createServer(function (request, response) {
     var urlObj = url.parse(request.url, true, false);
@@ -58,7 +58,7 @@ var chatRoom = http.createServer(function (request, response) {
             response.end();
         });
     }
-}).listen(1337);
+}).listen(8080);
  
 
 
@@ -71,6 +71,7 @@ var io = require('socket.io').listen(chatRoom);
 io.sockets.on('connection', function(socket) {
     socket.on('message_to_server', function(data) {
         console.log(data);
-        io.sockets.emit("message_to_client",{ message: data["message"], name: data["name"]});
+        io.sockets.emit("message_to_client",{ message: data["message"], name: data["name"], idNum: id});
+        id++;
     });
 });

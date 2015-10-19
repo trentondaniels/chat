@@ -8,28 +8,31 @@
         <script src="/socket.io/socket.io.js"></script>
     </head>
     <body ng-app="CS201Chat" ng-controller="MainController">
-        <div ng-hide="userLogged">
-            <h1>What is your name?</h1>
-            <input type="text" ng-model="userName" id="new-user" value="">
-            <button ng-click="closeLogIn()">Save</button>
-        </div>
         <div class="container">
+            <div class="header clearfix" style="margin-bottom: 25px" ng-show="userLogged">
+                <nav>
+                    <h3 class="text-muted">Welcome {{userName}}</h3>
+                </nav>
+            </div>
+            <div ng-hide="userLogged" >
+                <h1>What is your name?</h1>
+                <input type="text" ng-model="userName" id="new-user" value="">
+                <button ng-click="closeLogIn()">Save</button>
+            </div>
             <div class="col-md-3">
                 <div ng-show="userLogged">
-                    <h3>Existing Users</h3>
-                    <button class="glyphicon glyphicon-refresh" type="button" ng-click="refreshUsers()"></button>
-                    <br>
+                    <h4><button class="glyphicon glyphicon-refresh btn btn-info btn-xs" type="button" ng-click="refreshUsers()"></button> Existing Users:</h4>
                     <ul ng-if='users.length' class='list center stretch'>
                         <li ng-repeat='user in users' class='users' ng-bind="user"></li>
                     </ul>
                 </div>
             </div>
-            <div class ="col-md-6">
-                <div ng-show="userLogged">
+            <div class ="col-md-6" ng-show="userLogged">
+                <div id="chatlog" style="border: solid; padding: 30px; height: 500px; width: 500px; overflow-y: auto;"></div>
+                <div style="margin-top: 10px">
                     <input type="text" id="message_input"/>
                     <button ng-click="sendMessage()">Send</button>
                 </div>
-                <div id="chatlog"></div>
             </div>
         </div>
 
@@ -44,5 +47,4 @@
 <!-- Possible TO DO
     Add Style
     A way to chat with a single User
-    a user's comments appear a different color/aligned on a different side.
 -->
