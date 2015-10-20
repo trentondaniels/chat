@@ -3,14 +3,10 @@ var app = angular.module('CS201Chat', []);
 /* Client Side Socket
     Recieves a message from the server and adds it to the chat stream
 */
-
-
-
-
 //Will have to change URL to whatever is being used 
 var socketio = io.connect("http://utkk4a021056.trentondaniels.koding.io:8080");
 socketio.on("message_to_client", function(data) {
-    name = document.getElementById("name").textContent;
+    var name = document.getElementById("name").textContent;
     document.getElementById("chatlog").innerHTML = (document.getElementById("chatlog").innerHTML) +
     "<div class='row'><hr/>" + "<span class='chatBubble' id='" + data['idNum'] +"'>" + "<strong>" + 
     data['name'] + "</strong>" + data['message'] + "</span></div>";

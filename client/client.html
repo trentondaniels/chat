@@ -22,7 +22,10 @@
             </div>
             <div class="col-md-3">
                 <div ng-show="userLogged">
-                    <h4><button class="glyphicon glyphicon-refresh btn btn-info btn-xs" type="button" ng-click="refreshUsers()"></button> Existing Users:</h4>
+                    <h4>
+                        <button class="glyphicon glyphicon-refresh btn btn-info btn-xs" type="button" ng-click="refreshUsers()">
+                        </button> Active Users:
+                    </h4>
                     <ul ng-if='users.length' class='list center stretch'>
                         <li ng-repeat='user in users' class='users' ng-bind="user"></li>
                     </ul>
@@ -50,5 +53,7 @@
 <!-- Possible TO DO
     Add Style
     A way to chat with a single User
+    Timestamp
+    Prevent autoscroll
     comment min/max character
 -->

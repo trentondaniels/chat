@@ -2,6 +2,7 @@ app.controller('MainController', function($scope, $http, $window) {
     $scope.userName = null;
     $scope.userLogged = false;
     $scope.users = [];
+    
 /* closeLogIn()
     Checks the REST client for existing user name,
     adds the user and hides the div if the name 
@@ -20,6 +21,7 @@ app.controller('MainController', function($scope, $http, $window) {
             }
         });
     };
+    
     
 /* refreshUsers()
     Accesses the REST client and retrieves
@@ -41,5 +43,18 @@ app.controller('MainController', function($scope, $http, $window) {
         var msg = ": " + document.getElementById("message_input").value;
         var user = $scope.userName;
         socketio.emit("message_to_server", { message : msg, name : user});
+        document.getElementById("message_input").value = "";
         };
+        
+/* onbeforeunload()
+    If user leaves the page they are removed from the active
+    user list.
+    ******Currently it only works if the user refreshes the page*******
+*/
+    $window.unload = function() {
+        console.log($scope.userName);
+        if ($scope.userLogged) {
+            $http.get("deleteUser?q=" + $scope.userName);
+        }
+    };
 });
