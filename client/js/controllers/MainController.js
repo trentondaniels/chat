@@ -1,5 +1,7 @@
 app.controller('MainController', function($scope, $http, $window) {
     $scope.userName = null;
+    $scope.password = null;
+    $scope.newUser = false;
     $scope.userLogged = false;
     $scope.users = [];
     $scope.socketio = io.connect("ec2-54-148-77-110.us-west-2.compute.amazonaws.com:3000");
@@ -10,16 +12,29 @@ app.controller('MainController', function($scope, $http, $window) {
     pop up and the div will remain visible.
 */
     $scope.closeLogIn = function() {
-        $http.get("addUser?q=" + $scope.userName)
-        .success(function(response) {
-            if (!response) {
-                $window.alert("That Name Already Exists!");
-            }
-            else {
-                $scope.users = response;
-                $scope.userLogged = true;
-            }
-        });
+        if ($scope.newUser) {
+            $http.get("addUser?q=" + $scope.userName + "&p=" + $scope.password)
+            .success(function(response) {
+                if (!response) {
+                    $window.alert("That Name Already Exists!");
+                }
+                else {
+                    $scope.users = response;
+                    $scope.userLogged = true;
+                }
+            });
+        }
+        else {
+            $http.get("login?q=" + $scope.userName + "&p=" + $scope.password)
+            .success(function(response) {
+                if (response === "false") {
+                    $window.alert("Your username or password is incorrect");
+                }
+                else {
+                    $scope.userLogged = true;
+                }
+            });
+        }
     };
     
     

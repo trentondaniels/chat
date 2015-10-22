@@ -1,4 +1,5 @@
 var users = [];
+var namesOnly = [];
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
@@ -15,24 +16,44 @@ var chatRoom = http.createServer(function (request, response) {
     if (urlObj.pathname === '/addUser') {
         response.writeHead(200);
         console.log("hit endpoint '/addUser'")
-        var add = urlObj.query["q"];
+        var addUser = urlObj.query["q"];
+        var addPassword = urlObj.query["p"];
         var nameExists = false;
         for(i = 0; i < users.length; i++) {
-            if (add === users[i]) {
+            if (addUser === users[i].name) {
                 nameExists = true;
                 break;
             }
         }
         if (!nameExists) {
-            users.push(add);
+            users.push({'name': addUser, 'password': addPassword});
+            namesOnly.push(addUser)
             console.log("\tNew User Added");
             console.log("\t\tUsers: " + JSON.stringify(users) + "\n");
-            response.end(JSON.stringify(users));
+            response.end(JSON.stringify(namesOnly));
         }
-        else {
+        else if (nameExists) {
             console.log("\tUser name rejected.\n")
             response.end(false);
         }
+    }
+    /* GET: /login
+        returns true if valid name and password
+        false otherwise.
+    */
+    else if (urlObj.pathname === '/login') {
+        response.writeHead(200);
+        console.log("hit endpoint '/login'");
+        var checkUser = urlObj.query["q"];
+        var checkPassword = urlObj.query["p"];
+        var validAuth = "false";
+        for (i = 0; i < users.length; i++) {
+            if (checkUser === users[i].name && checkPassword === users[i].password) {
+                validAuth = "true";
+                break;
+            }
+        }
+        response.end(validAuth);
     }
     
 /* GET: /users
@@ -41,8 +62,8 @@ var chatRoom = http.createServer(function (request, response) {
     else if (urlObj.pathname === '/users') {
         response.writeHead(200);
         console.log("hit endpoint '/users'")
-        console.log("\tUsers: " + JSON.stringify(users) + "\n");
-        response.end(JSON.stringify(users));
+        console.log("\tUsers: " + JSON.stringify(namesOnly) + "\n");
+        response.end(JSON.stringify(namesOnly));
     }
     
 /* Default

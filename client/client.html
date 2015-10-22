@@ -15,9 +15,13 @@
                 </nav>
             </div>
             <div ng-hide="userLogged" >
-                <h1>What is your name?</h1>
+                <h1>Welcome</h1>
                 <form ng-submit="closeLogIn()">
-                    <input type="text" ng-model="userName"><input type="submit" value="Save">
+                    Username: <input type="text" ng-model="userName"><br>
+                    <br>
+                    Password: <input type="text" ng-model="password"><br>
+                    <input type="checkbox" ng-model="newUser">Are you a new User?<br>
+                    <input type="submit" value="Submit">
                 </form>
             </div>
             <div class="col-md-3">
