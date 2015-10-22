@@ -45,24 +45,6 @@ var chatRoom = http.createServer(function (request, response) {
         response.end(JSON.stringify(users));
     }
     
-/* Pseudo-DELETE (GET): /deleteUser
-    deletes a user from the list if they
-    leave the page (close tab, refresh, etc)
-*/
-    else if (urlObj.pathname === '/deleteUser') {
-        var deleteUser = urlObj.query["q"];
-        response.writeHead(200);
-        console.log("hit endpoint '/deleteUser'");
-        console.log("\tDeleting: " + deleteUser + "\n");
-        for(var i = 0; i < users.length; i++) {
-            if (deleteUser === users[i]) {
-                users.splice(i, 1);
-                break;
-            }
-        }
-        response.end();
-    }
-    
 /* Default
     Serves files from the client folder
 */

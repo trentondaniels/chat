@@ -19,13 +19,6 @@
                 <form ng-submit="closeLogIn()">
                     <input type="text" ng-model="userName"><input type="submit" value="Save">
                 </form>
-                    <h4>
-                        <button class="glyphicon glyphicon-refresh btn btn-info btn-xs" type="button" ng-click="refreshUsers()">
-                        </button> Existing Users:
-                    </h4>
-                    <ul ng-if='users.length' class='list center stretch'>
-                        <li ng-repeat='user in users' class='users' ng-bind="user"></li>
-                    </ul>
             </div>
             <div class="col-md-3">
                 <div ng-show="userLogged">

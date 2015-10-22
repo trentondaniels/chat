@@ -2,7 +2,7 @@ app.controller('MainController', function($scope, $http, $window) {
     $scope.userName = null;
     $scope.userLogged = false;
     $scope.users = [];
-    $scope.socketio = io.connect("http://utkk4a021056.trentondaniels.koding.io:3000");
+    $scope.socketio = io.connect("ec2-54-148-77-110.us-west-2.compute.amazonaws.com:3000");
 /* closeLogIn()
     Checks the REST client for existing user name,
     adds the user and hides the div if the name 
