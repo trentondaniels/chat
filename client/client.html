@@ -25,7 +25,7 @@
                 </form>
             </div>
             <div class="col-md-3">
-                <div ng-show="userLogged">
+                <div ng-show="userLogged" style=" height: 500px; overflow-y: auto;">
                     <h4>
                         <button class="glyphicon glyphicon-refresh btn btn-info btn-xs" type="button" ng-click="refreshUsers()">
                         </button> Existing Users:
@@ -40,7 +40,7 @@
                 <div style="margin-top: 10px">
                     <form ng-submit="sendMessage()">
                         <input type="text" id="message_input" value="">
-                        <input type="submit" value="Save">
+                        <input type="submit" value="Send">
                     </form>
                 </div>
             </div>
